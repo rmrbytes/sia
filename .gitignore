@@ -1,0 +1,21 @@
+# react app
+node_modules
+# gen
+.env
+# Ignore everything inside the data folder
+src/data/*
+ignore
+# But don't ignore these subdirectories (only include the directories)
+!src/data/agents/
+!src/data/store/
+!src/data/models/
+
+# Ignore all files inside the subdirectories
+src/data/agents/*
+src/data/store/*
+src/data/models/*
+
+# Allow .gitkeep or similar placeholder files to ensure directories are tracked
+!src/data/agents/.gitkeep
+!src/data/store/.gitkeep
+!src/data/models/.gitkeep
