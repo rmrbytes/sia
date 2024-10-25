@@ -25,7 +25,7 @@ from utils import (
     sanitize_agent_name,
     process_uploaded_files,
     trigger_embeddings_generation,
-    new_trigger_embeddings_generation,
+    trigger_embeddings_generation,
     delete_agent_files,
 )
 
@@ -103,15 +103,15 @@ async def route_save_agent(
         embeddings_status = ""
         # Trigger embeddings generation if files are added
         if new_files:
-            print("calling embeddings")
             if agent.files:
                 # Convert each FileDetail instance to a dictionary
                 files_dict_list = [file.model_dump() for file in agent.files]
             else:
                 files_dict_list = []
-            
-            asyncio.create_task(new_trigger_embeddings_generation(agent_name=agent.name, files=files_dict_list))
+            asyncio.create_task(trigger_embeddings_generation(agent_name=agent.name, files=files_dict_list))
             embeddings_status = "I"
+        # update embedding_status in agent
+        agent.embeddings_status = embeddings_status
         # Save agent data
         agent = save_agent(agent)
         # return to client
@@ -192,14 +192,13 @@ async def route_update_agent(
         embeddings_status = ""
         # Trigger embeddings generation if files were modified
         if new_files or agent.deleted_files:
-            print("triggering embeddings")
             # Check if files exist in the agent instance
             if agent.files:
                 # Convert each FileDetail instance to a dictionary
                 files_dict_list = [file.model_dump() for file in agent.files]
             else:
                 files_dict_list = []
-            asyncio.create_task(new_trigger_embeddings_generation(agent_name=agent.name, files=files_dict_list))
+            asyncio.create_task(trigger_embeddings_generation(agent_name=agent.name, files=files_dict_list))
             embeddings_status = "I"
 
         # update embeddings_status

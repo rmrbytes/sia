@@ -96,6 +96,7 @@ def chunk_files_in_dir(
         # add the splits to the array
         split_docs.extend(splitter_res['documents'])
 
+    print("no of docs:", len(split_docs))
     # Step 4: Embed the text_docs & Store it
     # --------------------------------------
     # embedder

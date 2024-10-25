@@ -84,56 +84,9 @@ def process_uploaded_files(agent_name: str, new_files: List[Any] = [], deleted_f
     except Exception as e:
         raise FileStorageException(detail=f"Error processing files of {agent_name}: {str(e)}")
 
-# Process uploaded files and manage deletions
-def new_process_uploaded_files(agent_name: str, new_files: List[Any] = [], deleted_files: str = "") -> str:
-    
-    try:
-        # Log the processing of files
-        logger.debug(f"Processing files for agent: {agent_name}")
-        # set the agent dir
-        agent_dir = os.path.join(settings.agents_dir, agent_name)
-        # Ensure the agent directory exists
-        os.makedirs(agent_dir, exist_ok=True)  
-        # Step 1: Process deleted files (remove them from the agent's directory)
-        if deleted_files:
-            deleted_files_list = [file.strip() for file in deleted_files.split(",") if file.strip()]
-            for file in deleted_files_list:
-                file_path = os.path.join(agent_dir, file)
-                if os.path.exists(file_path):
-                    os.remove(file_path)
-
-        # Step 2: Process new files (add them to the agent's directory)
-        for file in new_files:
-            file_path = os.path.join(agent_dir, file.filename)
-            with open(file_path, "wb") as f:
-                f.write(file.file.read())
-
-        return
-
-    except Exception as e:
-        raise FileStorageException(detail=f"Error processing files of {agent_name}: {str(e)}")
-
 
 # Trigger embeddings generation asynchronously
-async def trigger_embeddings_generation(agent_name: str) -> None:
-    try:
-        logger.debug(f"Triggering embeddings generation for agent: {agent_name}")
-
-        # Set the URL and headers
-        url = f"http://{settings.embeddings_server}:{settings.embeddings_server_port}/generate"
-        
-        headers = {settings.header_name: settings.header_key}
-        # Make an asynchronous HTTP POST request
-        async with httpx.AsyncClient() as client:
-            response = await client.post(url, json={"agent_name": agent_name}, headers=headers)
-            response.raise_for_status()
-
-    except Exception as e:
-        print(e)
-        raise ExternalServiceException(detail=f"Failed to trigger embeddings generation for {agent_name}")
-
-
-async def new_trigger_embeddings_generation(agent_name: str, files: List[Dict[str, Any]]) -> None:
+async def trigger_embeddings_generation(agent_name: str, files: List[Dict[str, Any]]) -> None:
     try:
         logger.debug(f"Triggering embeddings generation for agent: {agent_name}")
 
@@ -148,7 +101,7 @@ async def new_trigger_embeddings_generation(agent_name: str, files: List[Dict[st
         }
 
         # Make an asynchronous HTTP POST request
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             response = await client.post(url, json=payload, headers=headers)
             response.raise_for_status()
 
@@ -166,7 +119,7 @@ def delete_agent_files(agent_name: str) -> None:
         shutil.rmtree(agent_dir)
 
 # Query embeddings from the embeddings server
-def query_embeddings(agent_name: str) -> List[Any]:
+def query_embeddings(agent_name: str, prompt: str) -> List[Any]:
     try:
         url = f"http://{settings.embeddings_server}:{settings.embeddings_server_port}/query"
         headers = {
@@ -176,7 +129,7 @@ def query_embeddings(agent_name: str) -> List[Any]:
         with httpx.Client() as client:
             response = client.post(
                 url,
-                json={"agent_name": agent_name, "prompt": ""},
+                json={"agent_name": agent_name, "prompt": prompt},
                 headers=headers
             )    
         response.raise_for_status()  # Raises an exception for non-2xx responses
@@ -185,5 +138,5 @@ def query_embeddings(agent_name: str) -> List[Any]:
         document_chunks = response_json.get('results', [])
         return document_chunks
 
-    except requests.exceptions.RequestException as e:
+    except Exception as e:
         raise ExternalServiceException(detail=f"Error querying embeddings for agent {agent_name}: {str(e)}")

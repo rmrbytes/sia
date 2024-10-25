@@ -47,23 +47,23 @@ def route_post_chat(agent_name: str, request: Request, body: Dict[str, Any] = Bo
             raise HTTPException(status_code=400, detail="Agent name cannot be blank")
         # Get input details
         agent: Agent = get_agent(agent_name)
-        input_text: str = body.get("input", "")
+        prompt: str = body.get("prompt", "")
         messages: Dict[str, Any] = body.get("messages")
         response_length: str = body.get("response_length", settings.chat_response_length_default)
         # Get document text array via embeddings query
-        document_chunks = query_embeddings(agent_name=agent_name)
+        document_chunks = query_embeddings(agent_name=agent_name, prompt=prompt)
         # Compose request to be sent to LLM
         messages = compose_request(
             instruction=agent.instructions, 
             document_chunks=document_chunks, 
             history=messages, 
-            user_prompt=input_text
+            user_prompt=prompt
         )
         # Send request to the LLM server
         llm_response = send_prompt_vllm(messages=messages, response_length=response_length)
 
         return {"content": llm_response["content"], "role": llm_response["role"]}
-        #return {"content": document_chunks[0], "role": "assistant"}
+        #return {"content": document_chunks[0][:50], "role": "assistant"}
 
     except HTTPException as e:
         raise e

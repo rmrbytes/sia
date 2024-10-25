@@ -3,6 +3,7 @@
 import httpx
 from config import settings
 from fastapi import HTTPException
+from exceptions import ExternalServiceException
 
 # Helper function to compose the LLM request
 def compose_request(instruction, document_chunks, history, user_prompt):
@@ -92,6 +93,7 @@ def send_prompt_vllm(
         }
         return resp_json
         
-    except requests.exceptions.RequestException as e:
-        raise HTTPException(f"Error connecting to LLM server: {str(e)}")
+    except Exception as e:
+        raise  ExternalServiceException(detail=f"Error connecting to LLM Server: {str(e)}")
+    
 

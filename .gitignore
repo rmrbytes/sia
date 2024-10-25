@@ -19,3 +19,6 @@ src/data/models/*
 !src/data/agents/.gitkeep
 !src/data/store/.gitkeep
 !src/data/models/.gitkeep
+
+#others
+*.ipynb

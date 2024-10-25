@@ -9,7 +9,7 @@ from haystack_integrations.components.retrievers.chroma import ChromaEmbeddingRe
 
 from config import settings
 
-def get_chunks(agent_name:str, input: str, embedding_model_path: str, store_path: str):
+def get_chunks(agent_name:str, prompt: str, embedding_model_path: str, store_path: str):
 
     # set the embedder
     text_embedder = SentenceTransformersTextEmbedder(model=embedding_model_path)
@@ -24,9 +24,8 @@ def get_chunks(agent_name:str, input: str, embedding_model_path: str, store_path
     q.add_component("query_embedder", text_embedder)
     q.add_component("retriever", retriever)
     q.connect("query_embedder.embedding", "retriever.query_embedding")
-    results = q.run({"query_embedder": {"text": input}})
+    results = q.run({"query_embedder": {"text": prompt}})
     chunks = []
     for d in results["retriever"]["documents"]:
-        print(d.content.replace('\n', ' '))
         chunks.append(d.content.replace('\n', ' '))
     return chunks
