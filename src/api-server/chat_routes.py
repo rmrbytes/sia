@@ -26,9 +26,9 @@ def route_get_agent(agent_name: str, request: Request) -> Dict[str, Any]:
 
         # Extract required information only
         chat_agent_info = {
-            "name": agent["name"],
-            "welcome_message": agent["welcome_message"],
-            "suggested_prompts": agent["suggested_prompts"]
+            "name": agent.name,
+            "welcome_message": agent.welcome_message,
+            "suggested_prompts": agent.suggested_prompts
         }
         return {"agent": chat_agent_info}
 
