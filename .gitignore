@@ -21,4 +21,5 @@ src/data/models/*
 !src/data/models/.gitkeep
 
 #others
+.ipynb_checkpoints
 *.ipynb
