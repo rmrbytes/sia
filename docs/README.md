@@ -4,25 +4,29 @@
 
 This gives an overview of Sia
 
-### [1. Understanding Sia](01_understanding_sia)
+### [1. Understanding Sia](01_understanding_sia.md)
 
 This is an overview of what Sia does and how the different components interact with one another.
 
-### 2. Releases and Future features
+### 2. [Features - Current and Future](02_features.md)
 
-This to give a peek into what features are likley to be introduced in the short-run.
+This to give a peek into what current features have been introduced in Sia and those likely to be introduced in the short-run.
 
 ## Quick Start
 
 This is to for folks who would like to *roll up their sleeves* and get the platform working using default settings.
 
-### 3. Standard Install
+### 3. [Servers' Installation](03_quick_servers_install.md)
 
-This section covers how to quickly install the set of servers of the Sia platform with minimum pre-requisites.
+This section covers how to install the servers of the Sia platform with minimum changes to the sample environment file. In a later section, there is a detailed help on how to customize the servers for your requirement.
 
-### 4. Setting up the Sia CLI
+### 4. [Admin CLI Installation](04_cli_installation.md)
 
-This section is on how to set up the **command-line interface** to set up the servers. Details on the CLI are covered in a later section.
+This section is on how to download the CLI and use it to access the SIA servers set up in the earlier step.
+
+### 4. [Set Admin Password](04_set_admin_password.md)
+
+This section is on how to set up the **admin password** using  the command-line interface to set up the servers. Details on the CLI are covered in a later section.
 
 ### 5. Creating your first Agent
 
