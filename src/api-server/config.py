@@ -23,8 +23,8 @@ class Settings:
 
         # Security settings
         self.secret_key = os.getenv("SECRET_KEY", "some secret key")
-        self.header_name = "X-Requested-With"  # Fixed header name for requests from the frontend
-        self.header_key = os.getenv("X_API_KEY", "XteNATqxnbBkPa6TCHcK0NTxOM1JVkQl")  # Fixed secret key expected from the frontend
+        self.header_name = "X-Requested-With"  # header name for requests
+        self.header_key = os.getenv("X_API_KEY", "")  # API Key
         self.algorithm = "HS256"  # Algorithm used for encoding JWT
         self.is_https = os.getenv("USE_HTTPS", "false").strip().lower() == "true"
 
@@ -37,14 +37,14 @@ class Settings:
         self.embeddings_server_port = self._get_env_int("EMBEDDINGS_SERVER_PORT", 8002) # port used by the embeddings-server
         
         # chunking strategy
-        self.split_by = "word"
-        self.split_length = 200
-        self.split_overlap = 0
-        self.split_threshold = 0
+        self.split_by = os.getenv("SPLIT_BY", "sentence")
+        self.split_length = self._get_env_int("SPLIT_LENGTH", 5)
+        self.split_overlap = self._get_env_int("SPLIT_OVERLAP", 0)
+        self.split_threshold = self._get_env_int("SPLIT_THRESHOLD", 0)
 
         # llm-server info
-        self.llm_server = os.getenv("LLM_SERVER", "llm-server")
-        self.llm_server_port = self._get_env_int("LLM_SERVER_PORT", 8000) # port used by the llm-server
+        self.inference_server = os.getenv("INFERENCE_SERVER", "llm-server")
+        self.inference_server_port = self._get_env_int("INFERENCE_SERVER_PORT", 8000) # port used by the llm-server
         self.llm_model_name = os.getenv("LLM_MODEL_NAME", "microsoft/Phi-3-mini-4k-instruct")
         
         # chat params
@@ -59,8 +59,8 @@ class Settings:
         self.chat_presence_penalty = self._get_env_float("CHAT_PRESENCE_PENALTY", 0.0)
 
         # Allowed hosts handling
-        allowed_hosts_str = os.getenv("ALLOWED_HOSTS", "")
-        self.allowed_hosts = self._parse_allowed_hosts(allowed_hosts_str)
+        #allowed_hosts_str = os.getenv("ALLOWED_HOSTS", "")
+        #self.allowed_hosts = self._parse_allowed_hosts(allowed_hosts_str)
 
     def _get_env_int(self, key: str, default: int) -> int:
         # Helper function to safely get an integer environment variable.

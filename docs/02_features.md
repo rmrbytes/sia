@@ -2,18 +2,20 @@
 
 # Features: Current & Future
 
-1. **Docker Containers**: This entire farm of servers are orchestrated via docker containers. In tandem with the configuration files administrators can use resources suiting their needs.
+1. **Docker Containers**: SIA’s entire server farm is orchestrated via Docker containers, offering flexible deployment options. Administrators can adjust resource allocation to fit their environment and scale up as needed. Configuration files make it easy to modify and manage server settings.
 
-2. **Embedding models**: Sia gives flexibilty to adminstators to use any model that is suits their requirement. The embedding server in the current version supports any model of the **Sentence Tranformer** type. This is over 200 models. Check the list on [Huggingface](https://huggingface.co/models?sort=trending&search=sentence-transformers). 
+2. **Flexible Embedding Models**: SIA empowers administrators to select the embedding model that best fits their needs. The embedding server in the current version supports any **Sentence Transformer** model, giving access to over 200 models. Explore the full list on [Hugging Face](https://huggingface.co/models?sort=trending&search=sentence-transformers) to find the model that suits your data and requirements.
 
-3. **Inference platforms**: Currently supports the [vLLM](https://github.com/vllm-project/vllm). Work is currently in progress to add [TGI](https://github.com/huggingface/text-generation-inference), the Text Generation Inference by HuggingFace and [Ollama](https://ollama.com)
+3. **Inference Platforms**: SIA currently supports the [vLLM](https://github.com/vllm-project/vllm) platform, optimized for efficient, high-speed language generation. Future support is planned for [TGI](https://github.com/huggingface/text-generation-inference) (Text Generation Inference) by Hugging Face and [Ollama](https://ollama.com), enabling even broader compatibility with open-source LLMs.
 
-4. **Text Generation modes**: The only Text Generation mode that Sia currently supports is Chat or Conversational mode, where a user can have a conversation about a topic.
+4. **Text Generation Modes**: Currently, SIA supports a Chat or Conversational mode, allowing users to engage in a continuous conversation on topics configured per agent. Future releases may introduce additional modes based on community feedback.
 
-5. **Retrieval Augmented Generation**: Fundamentally, Sia is designed to create agents using RAG which is doucment based text generation. Sia makes the entire process of creating chunks from the document using embedding models and retrieving them to be shared with the inference server an easy task.
+5. **Retrieval-Augmented Generation (RAG)**: SIA is purpose-built for document-based text generation using RAG. The platform streamlines the process of chunking documents with embedding models, managing retrieval, and integrating with inference servers. This architecture simplifies the creation of intelligent agents powered by RAG.
 
-6. **Text-Gen parameters**: Currently, Sia is configured to accept text generation parameters like temperature, max-tokens etc set by the Admin. In subsequent versions we are enabling it at the user-level.
+6. **Text Generation Parameters**: SIA allows administrators to configure generation parameters—such as temperature, max tokens, and top-p—via environment variables. These control the style and depth of generated responses. In upcoming versions, we plan to support user-level customization, allowing end-users to adjust parameters dynamically.
 
-> We would like folks to use [issues on github](https://github.com/rmrbytes/sia/issues) to suggest new features.
+7. **Extensibility for New Features**: SIA is designed to be modular, and the development roadmap includes enhancing customization options, adding more inference models, and expanding user-level configuration.
+
+> **We welcome your input!** Use the [issues section on GitHub](https://github.com/rmrbytes/sia/issues) to suggest features, provide feedback, and help shape SIA’s future.
 
 [Back to Documentation](/docs/README.md)

@@ -2,62 +2,74 @@
 
 ## Overview
 
-This gives an overview of Sia
+This provides an overview of SIA.
 
-### [1. Understanding Sia](01_understanding_sia.md)
+### [1. Understanding SIA](01_understanding_sia.md)
 
-This is an overview of what Sia does and how the different components interact with one another.
+Learn what SIA does and how its different components interact.
 
-### 2. [Features - Current and Future](02_features.md)
+### [2. Features - Current and Future](02_features.md)
 
-This to give a peek into what current features have been introduced in Sia and those likely to be introduced in the short-run.
+Details on current features in SIA and upcoming ones in the short term.
 
-## Quick Start
+## Setup
 
-This is to for folks who would like to *roll up their sleeves* and get the platform working using default settings.
+For users ready to set up the platform using default settings.
 
-### 3. [Servers' Installation](03_quick_servers_install.md)
+### [3. Servers' Installation](03_servers_installation.md)
 
-This section covers how to install the servers of the Sia platform with minimum changes to the sample environment file. In a later section, there is a detailed help on how to customize the servers for your requirement.
+Covers how to install the servers of the SIA platform with minimal changes to the sample environment file. For a more customized setup, refer to the later sections.
 
-### 4. [Admin CLI Installation](04_cli_installation.md)
+### [4. Server CLI Installation](04_cli_installation.md)
 
-This section is on how to download the CLI and use it to access the SIA servers set up in the earlier step.
+The CLI is the primary interface to administer SIA’s servers, similar to how *git* and *docker* work. This section explains how to download and set up the CLI.
 
-### 4. [Set Admin Password](04_set_admin_password.md)
+### [5. Set Admin Password](05_set_admin_password.md)
 
-This section is on how to set up the **admin password** using  the command-line interface to set up the servers. Details on the CLI are covered in a later section.
+This section provides details on setting up the **admin password** using the command-line interface. Full CLI details are covered in a later section.
 
-### 5. Creating your first Agent
+### [6. Set Remote CLI](06_set_remote_cli.md)
 
-This section demonstrates the ease with which an agent can be created. It provides *sample data* to experiment with an agent.
+Explains how to connect to SIA servers from a remote computer using the CLI.
 
-## Administration
+## Using CLI
 
-### 6. Mastering the CLI
+### [7. Create an Agent](07_create_agent.md)
 
-The CLI is the only interface to administer Sia's servers; similar to how *git* and *docker* works. Master how short commands can power your servers.
+Learn how to create an agent using a YAML file.
 
-### 6. Mastering the Agent configuration
+### [8. Manage Agents](08_manage_agents.md)
 
-This section covers all the **configuration settings** in creating a custom agent. It covers the supported chunking and query strategies in the *RAG pipeline*.
+This section covers commands for managing agents: list, view, pull, push, and delete.
+
+## Using the Chat
+
+The Chat feature is intended for testing and integration with a web application rather than direct end-user exposure.
+
+### [9. Using Chat with CLI](09_chat_cli.md)
+
+Shows how to test the chat feature as an admin using the CLI.
+
+### [10. Integrating Chat with a Web App](10_chat_iframe.md)
+
+Instructions on embedding the chat feature inside a web application.
 
 ## Custom Setup
 
-This is the most important set of sections to harness the full power of Sia..
+Unlock the full power of SIA by customizing its configuration.
 
-### 7. Pre-requisites
+### [11. Mastering .env](11_mastering_env.md)
 
-This section covers the minimum requirements of the server and the API tokens to access models. 
+Learn how to set environment variables to customize SIA servers according to your requirements.
 
-### 8. Mastering .env
+### [12. Configuring Inference Servers](12_inference_servers.md)
 
-This section covers how to set the **embedding models**,  **inference models** and other settings to suit your needs.
-
-### 9. Configuring inference servers
-
-The role of the inference model in the success of a GenAI solution cannot be marginalized. Consequently, an understanding of how it works and what parameters should be tweaked to make the most of it is important to the success of such a solution. This section provides some guidelines and links to help you.
+Inference models are crucial to the success of a GenAI solution. This section provides guidelines and links to help you configure and fine-tune these models effectively.
 
 ## Reporting Errors and Contributions
 
-The platform is at a beta stage. Kindly use the [issues on github](https://github.com/rmrbytes/sia/issues) to post your queries, report bugs and requests for features. We will do our best to quicky address most of them.
+SIA is currently in beta. We welcome your feedback and contributions! Use the [issues section on GitHub](https://github.com/rmrbytes/sia/issues) to submit queries, report bugs, and request features. We’ll do our best to address them promptly.
+
+---
+
+Looking to get started quickly? Head over to the [Setup section](03_servers_installation.md) and begin with the default configuration.

@@ -67,7 +67,7 @@ def send_prompt_vllm(
         max_tokens = get_max_tokens_by_length(response_length)
 
         # Call the vLLM API using requests
-        url = f"http://{settings.llm_server}:{settings.llm_server_port}/v1/chat/completions"
+        url = f"http://{settings.inference_server}:{settings.inference_server_port}/v1/chat/completions"
         with httpx.Client(timeout=600) as client:
             response = client.post(
                 url,

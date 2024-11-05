@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8002
 
 # Start the uvicorn server with the specified number of workers
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port 8002 --workers ${API_NO_WORKERS:-1}"]
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port 8002 --workers ${EMBEDDINGS_NO_WORKERS:-1}"]

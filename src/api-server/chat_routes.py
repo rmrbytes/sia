@@ -60,10 +60,10 @@ def route_post_chat(agent_name: str, request: Request, body: Dict[str, Any] = Bo
             user_prompt=prompt
         )
         # Send request to the LLM server
-        llm_response = send_prompt_vllm(messages=messages, response_length=response_length)
+        #llm_response = send_prompt_vllm(messages=messages, response_length=response_length)
 
-        return {"content": llm_response["content"], "role": llm_response["role"]}
-        #return {"content": document_chunks[0][:50], "role": "assistant"}
+        #return {"content": llm_response["content"], "role": llm_response["role"]}
+        return {"content": document_chunks[0], "role": "assistant"}
 
     except HTTPException as e:
         raise e

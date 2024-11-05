@@ -7,8 +7,8 @@ services:
     env_file:
       - .env
 
-  # this is the llm-server
-  llm-server:
+  # this is the inference-server
+  inference-server:
     image: vllm/vllm-openai:latest
     ports:
       - "8000:8000"
