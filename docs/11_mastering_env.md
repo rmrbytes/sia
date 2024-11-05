@@ -196,7 +196,15 @@ This is the port number of the API server. Change it only if the server port in 
 
 The inference server settings are based on the type of inference platform used. Currently, SIA supports vLLM, and the following settings can be configured via environment variables. Refer to the complete set of [vLLM Docker environment variables](https://docs.vllm.ai/en/v0.5.5/serving/env_vars.html) for more information.
 
-### 4.1. **LLM Model Name**
+### 4.1 **Target Device**
+
+```plaintext
+VLLM_TARGET_DEVICE=CUDA
+```
+
+Specify the device type. Supported are: rocm, neuron, cpu, openvino
+
+### 4.2. **LLM Model Name**
 
 ```plaintext
 LLM_MODEL_NAME=meta-llama/Llama-3.2-1B-Instruct
@@ -204,7 +212,7 @@ LLM_MODEL_NAME=meta-llama/Llama-3.2-1B-Instruct
 
 Specify the LLM model to run on the inference server. You can choose any open-source model available on Hugging Face.
 
-### 4.2. **Model Data Type (`DTYPE`)**
+### 4.3. **Model Data Type (`DTYPE`)**
 
 ```plaintext
 DTYPE=float16
@@ -212,7 +220,7 @@ DTYPE=float16
 
 Specify the data type for the model weights. Options are `auto`, `float16`, or `float32` (default). Using `float16` can reduce memory usage.
 
-### 4.3. **GPU Memory Fraction**
+### 4.4. **GPU Memory Fraction**
 
 ```plaintext
 VLLM_GPU_MEMORY_FRACTION=0.9
@@ -220,7 +228,7 @@ VLLM_GPU_MEMORY_FRACTION=0.9
 
 Set a value between `0` and `1` to determine the fraction of GPU memory used by the model. A higher value allows for better performance.
 
-### 4.4. **Number of GPU Layers**
+### 4.5. **Number of GPU Layers**
 
 ```plaintext
 VLLM_NUM_GPU_LAYERS=40
@@ -228,7 +236,7 @@ VLLM_NUM_GPU_LAYERS=40
 
 Specify the number of transformer layers to keep on the GPU (when offloading to the CPU is enabled). Increase the value to keep more layers in GPU memory for better performance.
 
-### 4.5. **CPU Offloading**
+### 4.6. **CPU Offloading**
 
 ```plaintext
 VLLM_OFFLOAD_CPU=true
@@ -236,7 +244,7 @@ VLLM_OFFLOAD_CPU=true
 
 Enable offloading of model layers to the CPU if GPU memory is insufficient. This is useful for large models that may not fully fit in GPU memory.
 
-### 4.6. **Maximum Sequence Length**
+### 4.7. **Maximum Sequence Length**
 
 ```plaintext
 VLLM_MAX_SEQ_LENGTH=4096
@@ -244,13 +252,83 @@ VLLM_MAX_SEQ_LENGTH=4096
 
 Specify the maximum sequence length in tokens. Set this based on the model's capabilities and requirements.
 
-### 4.7. **OpenAPI Key**
+### 4.8. **OpenAPI Key**
 
 ```plaintext
 OPENAPI_KEY=None
 ```
 
 Although SIA uses locally loaded models, an OpenAPI key may be required for future use if integrating with OpenAI's models.
+
+## Chat Settings
+
+These settings are only used for the purposes of Chat. In later versions these value can be set differently for an agent and also can be overriden by a user. Currently, these values are applicable for all agents.
+
+### 5.1 **Chat Response Length**
+
+```plaintext
+CHAT_RESPONSE_LENGTH=M
+```
+
+This is to set the length of the response from the Inference server. Supported values are: S, M, L for Short, Medium and Long. These are a convenience for the end-user (not currently supported) to specify the length of response.
+
+### 5.2 **Chat Response Length - Short**
+
+```plaintext
+CHAT_RESPONSE_LENGTH_SHORT=50
+```
+
+This sets the max number of tokens of a short response. Useful if you want the Inference server to provide pointed answer.
+
+### 5.3 **Chat Response Length - Medium**
+
+```plaintext
+CHAT_RESPONSE_LENGTH_MEDIUM=150
+```
+
+This sets the max number of tokens of a medium response.
+
+### 5.4 **Chat Response Length - Long**
+
+```plaintext
+CHAT_RESPONSE_LENGTH_LONG=300
+```
+
+This sets the max number of tokens of a long response.
+
+### 5.5 **Chat Temperature**
+
+```plaintext
+CHAT_TEMPERATURE=0.7
+```
+
+Sets the temperature of the response. The range is 0 (deterministic) to 1.0 (more creative). 
+
+### 5.6 **Chat Top P Sampling Parameter**
+
+```plaintext
+CHAT_TOP_P=0.9
+```
+
+Sets the Sampling Parameter of the response. Range is 0 to 1. A higher value will allow more randomness
+
+
+### 5.7 **Chat Frequency Penalty**
+
+```plaintext
+CHAT_FREQUENCY_PENALTY=0
+```
+
+Sets the Frequency Penalty of the response. Range is 0 to 2. Higher the value, reduces likelihood of repetitive words.
+
+### 5.8 **Chat Presence Penalty**
+
+```plaintext
+CHAT_PRESENCE_PENALTY=0
+```
+
+Sets the Presence Penalty of the response. Range is 0 to 2. Higher the value, increases the likelihood of new concepts.
+
 
 [Back to Documentation](/docs/README.md)
 

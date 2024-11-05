@@ -123,7 +123,7 @@ def query_embeddings(agent_name: str, prompt: str) -> List[Any]:
     try:
         url = f"http://{settings.embeddings_server}:{settings.embeddings_server_port}/query"
         headers = {
-            "X-Requested-With": "XteNATqxnbBkPa6TCHcK0NTxOM1JVkQl"
+            settings.header_name: settings.header_key
         }
 
         with httpx.Client() as client:

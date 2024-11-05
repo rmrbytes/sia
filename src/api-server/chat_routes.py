@@ -16,7 +16,8 @@ chat_router = APIRouter()
 @chat_router.get("/{agent_name}")
 def route_get_agent(agent_name: str, request: Request) -> Dict[str, Any]:
     try:
-        verify_x_api_key(headers=request.headers)
+        # disable verification of chat apis from browser
+        #verify_x_api_key(headers=request.headers)
 
         if not agent_name:
             raise HTTPException(status_code=400, detail="Agent name cannot be blank")
@@ -42,7 +43,7 @@ def route_get_agent(agent_name: str, request: Request) -> Dict[str, Any]:
 @chat_router.post("/{agent_name}")
 def route_post_chat(agent_name: str, request: Request, body: Dict[str, Any] = Body(...)) -> Dict[str, Any]:
     try:
-        verify_x_api_key(headers=request.headers)
+        #verify_x_api_key(headers=request.headers)
         if not agent_name:
             raise HTTPException(status_code=400, detail="Agent name cannot be blank")
         # Get input details
@@ -60,10 +61,10 @@ def route_post_chat(agent_name: str, request: Request, body: Dict[str, Any] = Bo
             user_prompt=prompt
         )
         # Send request to the LLM server
-        #llm_response = send_prompt_vllm(messages=messages, response_length=response_length)
+        llm_response = send_prompt_vllm(messages=messages, response_length=response_length)
 
-        #return {"content": llm_response["content"], "role": llm_response["role"]}
-        return {"content": document_chunks[0], "role": "assistant"}
+        return {"content": llm_response["content"], "role": llm_response["role"]}
+        #return {"content": document_chunks[0], "role": "assistant"}
 
     except HTTPException as e:
         raise e
