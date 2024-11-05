@@ -8,9 +8,11 @@ from typing import Optional, Dict, Any
 from config import settings
 from chunker import chunk_files_in_dir
 from retriever import get_chunks
+from remove import delete_agent_embeddings
 
 # Initialize FastAPI
 app = FastAPI()
+
 
 # Helper function to notify app server
 async def notify_api_server(agent_name: str) -> None:
@@ -27,6 +29,7 @@ async def notify_api_server(agent_name: str) -> None:
     except Exception as e:
         print(f"Error notifying app server: {str(e)}")
 
+
 # To verify api key when called from api-server
 def verify_x_api_key(headers: Headers) -> str:
     x_api_key: Optional[str] = headers.get(settings.header_name)
@@ -36,20 +39,20 @@ def verify_x_api_key(headers: Headers) -> str:
         raise HTTPException(status_code=401, detail="Invalid X-API-Key")
     return x_api_key
 
-# define embedding model_path 
+
+# define embedding model_path
 embedding_model_path = os.path.join(settings.models_dir, settings.embedding_model_name)
+
 
 # 1. Route to generate chunks and save them in the vector store
 @app.post("/generate")
 async def generate(
-    request: Request, 
-    response: Response,
-    body: Dict[str, Any] = Body(...)
-    ) -> Dict[str, str]:
+    request: Request, response: Response, body: Dict[str, Any] = Body(...)
+) -> Dict[str, str]:
 
     # verify request is from api-server
     verify_x_api_key(headers=request.headers)
-    
+
     # set agent dir
     agent_name: str = body.get("agent_name")
     agent_dir: str = os.path.join(settings.agents_dir, agent_name)
@@ -58,11 +61,13 @@ async def generate(
     if not os.path.exists(agent_dir):
         raise HTTPException(status_code=404, detail="Agent directory not found")
 
-    # get files 
+    # get files
     files = body.get("files")
 
-    chunk_files_in_dir(agent_name, agent_dir, embedding_model_path, settings.store_dir, files)    
- 
+    chunk_files_in_dir(
+        agent_name, agent_dir, embedding_model_path, settings.store_dir, files
+    )
+
     # notify api server
     asyncio.create_task(notify_api_server(agent_name=agent_name))
 
@@ -70,26 +75,35 @@ async def generate(
     # return response with cookie and no data
     return response
 
+
 # 2. Route to query the vector store based on input query and agent
 @app.post("/query")
-async def query(
-    request: Request,
-    agent_name: str = Body(...), 
-    prompt: str  = Body(...)
-    ):
+async def query(request: Request, agent_name: str = Body(...), prompt: str = Body(...)):
 
     # verify headers
     verify_x_api_key(headers=request.headers)
 
     # initialize Query Handler
     chunks = get_chunks(agent_name, prompt, embedding_model_path, settings.store_dir)
-    
+
     return {
-            "status": "success",
-            "agent_name": agent_name,
-            "prompt": prompt,
-            "results": chunks
+        "status": "success",
+        "agent_name": agent_name,
+        "prompt": prompt,
+        "results": chunks,
     }
+
+
+# 3. Remove the embeddings of an agent to be deleted
+@app.post("/remove")
+async def deleteEmbeddings(request: Request):
+    body = await request.json()
+    # verify headers
+    verify_x_api_key(headers=request.headers)
+    # call delete embeddings
+    delete_agent_embeddings(body['agent_name'], settings.store_dir)
+    return {"status": "success", "agent_name": body['agent_name']}
+
 
 @app.get("/health")
 async def health_check():

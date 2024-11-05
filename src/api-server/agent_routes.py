@@ -25,8 +25,8 @@ from utils import (
     sanitize_agent_name,
     process_uploaded_files,
     trigger_embeddings_generation,
-    trigger_embeddings_generation,
     delete_agent_files,
+    trigger_embeddings_deletion
 )
 
 from config import settings
@@ -46,7 +46,6 @@ def route_agents(request: Request):
 
         # fetch agents and return
         agents = get_agents()
-        print(agents)
         return agents
 
     except HTTPException as e:
@@ -253,6 +252,8 @@ def route_delete_agent(request: Request, response: Response, agent_name: str) ->
         # Delete agent from the database
         delete_agent(name=agent_name)
 
+        # Delete embeddings from embeddings-server
+        trigger_embeddings_deletion(agent_name)
         response.status_code = 204
         return response
 

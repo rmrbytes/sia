@@ -134,8 +134,10 @@ Follow these steps for a quick install:
    With everything in place, run Docker Compose to set up the containers and download necessary binaries:
 
    ```bash
-   docker compose -f docker-compose.yaml up
+   docker compose -f docker-compose.yaml up -d
    ```
+
+   The first time you are running the servers we recommend not using the `-d` detached mode flag so that the progress of the image loading is visible
 
    > This step should take less than 20 minutes to complete.
 

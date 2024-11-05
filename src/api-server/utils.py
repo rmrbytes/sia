@@ -140,3 +140,22 @@ def query_embeddings(agent_name: str, prompt: str) -> List[Any]:
 
     except Exception as e:
         raise ExternalServiceException(detail=f"Error querying embeddings for agent {agent_name}: {str(e)}")
+
+# Delete embeddings from the embeddings server
+def trigger_embeddings_deletion(agent_name: str) -> None:
+    try:
+        url = f"http://{settings.embeddings_server}:{settings.embeddings_server_port}/remove"
+        headers = {
+            settings.header_name: settings.header_key
+        }
+        with httpx.Client() as client:
+            response = client.post(
+                url,
+                json={"agent_name": agent_name},
+                headers=headers
+            )    
+        response.raise_for_status()  # Raises an exception for non-2xx responses
+        return 
+
+    except Exception as e:
+        raise ExternalServiceException(detail=f"Error deleting embeddings for agent {agent_name}: {str(e)}")

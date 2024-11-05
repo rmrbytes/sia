@@ -58,13 +58,10 @@ Instructions on embedding the chat feature inside a web application.
 
 Unlock the full power of SIA by customizing its configuration.
 
-### [11. Mastering .env](11_mastering_env.md)
+### [11. Customizing .env](11_customizing_env.md)
 
 Learn how to set environment variables to customize SIA servers according to your requirements.
 
-### [12. Configuring Inference Servers](12_inference_servers.md)
-
-Inference models are crucial to the success of a GenAI solution. This section provides guidelines and links to help you configure and fine-tune these models effectively.
 
 ## Reporting Errors and Contributions
 

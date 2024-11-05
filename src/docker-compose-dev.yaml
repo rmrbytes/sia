@@ -3,7 +3,7 @@ services:
   model-downloader:
     build: 
       context: ./model-downloader
-    image: rmrhub/model-downloader:v0.1.0
+    image: rmrhub/model-downloader:v0.1.1
     volumes:
       - ./${DATA_DIR}:/app/${DATA_DIR}  
     env_file:
@@ -15,7 +15,7 @@ services:
       context: ./embeddings-server
       dockerfile: Dockerfile
     hostname: embeddings-server
-    image: rmrhub/sia-embeddings-server:v0.1.0
+    image: rmrhub/sia-embeddings-server:v0.1.1
     environment:
       - PYTHONUNBUFFERED=1
     env_file:
@@ -39,7 +39,7 @@ services:
       context: ./api-server
       dockerfile: Dockerfile
     hostname: api-server # required for web-server to proxy_pass
-    image: rmrhub/sia-api-server:v0.1.0
+    image: rmrhub/sia-api-server:v0.1.1
     environment:
       - PYTHONUNBUFFERED=1 # can be removed in production
     env_file:
