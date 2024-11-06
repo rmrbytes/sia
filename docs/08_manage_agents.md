@@ -46,7 +46,7 @@ sia agent -n=product-specialist
 This will display the agent's configuration in a YAML format, providing all details, including the welcome message, instructions, and associated files.
 ```yaml
 name: product-specialist
-welcomemessage: Hi! I am the Product Manager of ACs in Aerocool Innovations.
+welcome_message: Hi! I am the Product Manager of ACs in Aerocool Innovations.
 instructions: |
     You are an expert on the entire AC product range of Aerocool Innovations. You have access to;
     - the product specifications
@@ -55,7 +55,7 @@ instructions: |
     - and the company profile
 
     Answer any queries related to the range of ACs. In case you are not aware of the answer gently decline to answer.
-suggestedprompts:
+suggested_prompts:
     - When was Aerocool founded?
     - When do I need to change the filter in the AC?
     - What is the range of cooling capacities in the different products.

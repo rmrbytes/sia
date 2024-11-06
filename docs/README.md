@@ -54,11 +54,21 @@ Shows how to test the chat feature as an admin using the CLI.
 
 Instructions on embedding the chat feature inside a web application.
 
+## Sample Agent
+
+We are providing a sample agent that you may use as your first agent.
+
+### [11. Sample Agent](11_sample_agent.md)
+
 ## Custom Setup
 
 Unlock the full power of SIA by customizing its configuration.
 
-### [11. Customizing .env](11_customizing_env.md)
+### [12. Customizing .env](12_customizing_env.md)
+
+Learn how to set environment variables to customize SIA servers according to your requirements.
+
+### [13. Understanding docker-compose.yaml](13_docker_compose.md)
 
 Learn how to set environment variables to customize SIA servers according to your requirements.
 

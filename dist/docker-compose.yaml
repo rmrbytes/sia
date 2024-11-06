@@ -21,7 +21,7 @@ services:
     runtime: nvidia
     depends_on:
       - model-downloader    
-    command: ["--model", "/models/${LLM_MODEL_NAME}", "--dtype", "${DTYPE}"]
+    command: ["--model", "${LLM_MODEL_NAME}", "--dtype", "${DTYPE}"]
 
   # this is the embeddings server
   embeddings-server:

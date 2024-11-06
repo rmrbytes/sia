@@ -14,7 +14,9 @@
 
 6. **Text Generation Parameters**: SIA allows administrators to configure generation parameters—such as temperature, max tokens, and top-p—via environment variables. These control the style and depth of generated responses. In upcoming versions, we plan to support user-level customization, allowing end-users to adjust parameters dynamically.
 
-7. **Extensibility for New Features**: SIA is designed to be modular, and the development roadmap includes enhancing customization options, adding more inference models, and expanding user-level configuration.
+7. **Web inteface for chat**: SIA provides a web interface for making the agent chat available to your end-users. By design, this chat interface is to be part of another hosted web application (using `iframe`) where the access to the agents may be controlled. 
+
+8. **Extensibility for New Features**: SIA is designed to be modular, and the development roadmap includes enhancing customization options, adding more inference models, and expanding user-level configuration.
 
 > **We welcome your input!** Use the [issues section on GitHub](https://github.com/rmrbytes/sia/issues) to suggest features, provide feedback, and help shape SIA’s future.
 
