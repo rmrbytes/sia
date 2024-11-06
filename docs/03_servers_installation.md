@@ -57,24 +57,24 @@ Follow these steps for a quick install:
 
    - **To download a zip file**:
    ```bash
-   wget https://github.com/rmrbytes/sia/releases/download/v1.0.0/sia-v0.1.0.zip
+   wget https://github.com/rmrbytes/sia/releases/download/v1.0.1/sia-v0.1.1.zip
    ```
    
    - **To download a tar.gz file**:
    ```bash
-   wget https://github.com/rmrbytes/sia/releases/download/v1.0.0/sia-v0.1.0.tar.gz
+   wget https://github.com/rmrbytes/sia/releases/download/v1.0.1/sia-v0.1.1.tar.gz
    ```
 
 4. **Extract the Archive**:
 
    - **If zip was downloaded**:
      ```bash
-     unzip sia-v0.1.0.zip
+     unzip sia-v0.1.1.zip
      ```
    
    - **If tar.gz was downloaded**:
      ```bash
-     tar -xzvf sia-v0.1.0.tar.gz
+     tar -xzvf sia-v0.1.1.tar.gz
      ```
 
    > **Note:** `zip` or `tar` utilities must be installed on the server.
