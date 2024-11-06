@@ -18,10 +18,10 @@ services:
     env_file:
       - .env
     ipc: "host"
-    restart: always 
+    runtime: nvidia
     depends_on:
-      - model_downloader
-    command: ["--model", "${LLM_MODEL_NAME}", "--dtype", "${DTYPE}", "--runtime", "nvidia", "--gpus", "ALL"]
+      - model-downloader    
+    command: ["--model", "/models/${LLM_MODEL_NAME}", "--dtype", "${DTYPE}"]
 
   # this is the embeddings server
   embeddings-server:

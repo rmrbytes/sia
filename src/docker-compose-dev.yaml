@@ -19,9 +19,10 @@ services:
     env_file:
       - .env
     ipc: "host"
+    runtime: nvidia
     depends_on:
-      - model-downloader
-    command: ["--model", "${LLM_MODEL_NAME}", "--dtype", "${DTYPE}", "--runtime", "nvidia", "--gpus", "ALL"]
+      - model-downloader    
+    command: ["--model", "/models/${LLM_MODEL_NAME}", "--dtype", "${DTYPE}"]
   
   # this is the embeddings server that creates and retrieves embeddings that are stored in the doc-store server 
   embeddings-server:
