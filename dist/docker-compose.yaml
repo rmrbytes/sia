@@ -1,7 +1,7 @@
 services:
   # this downloads the models once on to host machine and exits
   model-downloader:
-    image: rmrhub/model-downloader:v0.1.0
+    image: rmrhub/model-downloader:v0.1.1
     volumes:
       - ./${DATA_DIR}:/app/${DATA_DIR} 
     restart: always 
@@ -14,19 +14,19 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ~/.cache/huggingface:/root/.cache/huggingface
+      - ./data/models:/models
     env_file:
       - .env
     ipc: "host"
-    # uncomment if using nvidia gpu
-    #runtime: nvidia
     restart: always 
-    command: ["--model", "${LLM_MODEL_NAME}", "--dtype", "${DTYPE}"]
+    depends_on:
+      - model_downloader
+    command: ["--model", "${LLM_MODEL_NAME}", "--dtype", "${DTYPE}", "--runtime", "nvidia", "--gpus", "ALL"]
 
   # this is the embeddings server
   embeddings-server:
     hostname: embeddings-server
-    image: rmrhub/sia-embeddings-server:v0.1.0
+    image: rmrhub/sia-embeddings-server:v0.1.1
     environment:
       - PYTHONUNBUFFERED=1
     env_file:
@@ -48,7 +48,7 @@ services:
   # this is the api server
   api-server:
     hostname: api-server # required for web-server to proxy_pass
-    image: rmrhub/sia-api-server:v0.1.0
+    image: rmrhub/sia-api-server:v0.1.1
     environment:
       - PYTHONUNBUFFERED=1 # can be removed in production
     env_file:

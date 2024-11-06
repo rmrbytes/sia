@@ -8,6 +8,20 @@ services:
       - ./${DATA_DIR}:/app/${DATA_DIR}  
     env_file:
       - .env
+
+  # this is the inference-server
+  inference-server:
+    image: vllm/vllm-openai:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/models:/models
+    env_file:
+      - .env
+    ipc: "host"
+    depends_on:
+      - model-downloader
+    command: ["--model", "${LLM_MODEL_NAME}", "--dtype", "${DTYPE}", "--runtime", "nvidia", "--gpus", "ALL"]
   
   # this is the embeddings server that creates and retrieves embeddings that are stored in the doc-store server 
   embeddings-server:
@@ -54,8 +68,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
-    #depends_on:
-    #  - embeddings-server
+    depends_on:
+      - embeddings-server
     command: >
       sh -c "chmod -R 777 /app/${DATA_DIR} && uvicorn main:app --host 0.0.0.0 --port 8080 --workers ${API_NO_WORKERS:-1}"
 
@@ -69,7 +83,7 @@ services:
       - "3000:3000"
       # Uncomment the following line to expose HTTPS port
       # - "443:443"
-    depends_on:
-      - api-server
+    #depends_on:
+    #  - api-server
     volumes:
       - ./web-server/nginx.conf:/etc/nginx/nginx.conf:ro
