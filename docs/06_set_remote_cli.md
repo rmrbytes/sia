@@ -12,13 +12,7 @@ Ensure that port 80 was kept open during the server installation step. This is r
 
 ### 2. **Install the CLI on the Remote Computer**
 
-Follow the instructions in [Admin CLI Installation](04_cli_installation.md) to download and install the CLI on your remote machine. Move the CLI to the user home directory or set the system path to access it easily from any terminal session.
-
-Once installed, test that the CLI was correctly installed by running:
-
-```bash
-sia --help
-```
+Follow the instructions in [Admin CLI Installation](04_cli_installation.md) to download and install the CLI on your remote machine. 
 
 ### 3. **Set Environment Variables for Remote Access**
 

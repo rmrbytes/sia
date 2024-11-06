@@ -14,7 +14,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./data/models:/models
+      - ~/.cache/huggingface:/root/.cache/huggingface
     env_file:
       - .env
     ipc: "host"

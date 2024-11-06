@@ -57,12 +57,12 @@ Follow these steps for a quick install:
 
    - **To download a zip file**:
    ```bash
-   wget https://github.com/rmrbytes/sia/releases/download/v1.0.1/sia-v0.1.1.zip
+   wget https://github.com/rmrbytes/sia/releases/download/v0.1.1/sia-v0.1.1.zip
    ```
    
    - **To download a tar.gz file**:
    ```bash
-   wget https://github.com/rmrbytes/sia/releases/download/v1.0.1/sia-v0.1.1.tar.gz
+   wget https://github.com/rmrbytes/sia/releases/download/v0.1.1/sia-v0.1.1.tar.gz
    ```
 
 4. **Extract the Archive**:
@@ -107,7 +107,7 @@ Follow these steps for a quick install:
 
 7. **Set the Hugging Face Token and X-API-Key**:
 
-   Edit the `.env` file to add the Hugging Face token and X-API-Key. The Hugging Face token should be obtained as described in the prerequisites, while the X-API-Key can be generated using one of the methods below:
+   Edit the `.env` file to add the Hugging Face token and X-API-Key using an editor like nano or vi. The Hugging Face token should be obtained as described in the prerequisites, while the X-API-Key can be generated using one of the methods below:
 
    ```bash
    # In the .env file, add:

@@ -2,23 +2,70 @@
 
 # SIA CLI Installation
 
-The SIA Command Line Interface (CLI) is a terminal-based tool used to administer SIA servers. Follow the steps below to install and configure the CLI on your server.
+The SIA Command Line Interface (CLI) is a terminal-based tool used to administer SIA servers. The tool is developed as a separate open-source project. To download the latest version, refer to the [release notes]((https://github.com/rmrbytes/sia-cli/releases/tag/v0.1.1).
+
+
+## List of Binaries available
+
+The following are the available binaries of the CLI. Download the appropriate one for your access platform:
+
+- **Linux**:
+  - [Linux (x86_64)](https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-linux)
+  - [Linux (ARM)](https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-linux-arm)
+  - [Linux (ARMv7)](https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-linux-armv7)
+- **macOS**:
+  - [macOS (Intel)](https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-mac-intel)
+  - [macOS (ARM)](https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-mac-arm)
+- **Windows**:
+  - [Windows (x86_64)](https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-windows.exe)
 
 ## Installation Steps
 
-### 1. **Download the Latest CLI Release**
+**Step 1: Download the appropriate Binary**
 
-The SIA CLI tool is developed as a separate open-source project. To download the latest version, refer to the release documentation available here:
+You may download the appropriate Binary by clicking on the above link or using `wget` from the terminal.
 
-- [SIA CLI v0.1.0](https://github.com/rmrbytes/sia-cli/releases/tag/v0.1.0)
+- `wget https://github.com/rmrbytes/sia-cli/releases/download/v0.1.1/sia-linux` (change the name accordingly)
 
-Follow the steps mentioned in the release notes to install the CLI on your server. Once installed, you can test the installation using the following command:
+**Step 2: Install the CLI**
+- **Linux**:
+  1. Make the binary executable:
+     ```bash
+     chmod +x sia-linux  # or sia-linux-arm/sia-linux-armv7 based on your download
+     ```
+  2. Move it to `/usr/local/bin` and rename it to **"sia"** for easy access:
+     ```bash
+     sudo mv sia-linux /usr/local/bin/sia
+     ```
+  3. Verify the installation:
+     ```bash
+     sia --help
+     ```
+- **macOS**:
+  1. Make the binary executable:
+     ```bash
+     chmod +x sia-mac-arm  # or sia-mac-intel based on your download
+     ```
+  2. Move it to `/usr/local/bin` and rename it to "sia" for easy access:
+     ```bash
+     sudo mv sia-mac-arm /usr/local/bin/sia
+     ```
+  3. If you receive a message saying "sia can't be opened because Apple cannot check it for malicious software", follow these steps:
+     - Open `System Preferences` > `Security & Privacy`.
+     -  You will see a message about "sia" being blocked. Click `Open Anyway`.
+     - Run the `sia` command again, and confirm by clicking `Open` in the pop-up.
+  4. Verify the installation:
+     ```bash
+     sia --help
+     ```
+- **Windows**:
+  1. Rename the downloaded file to `sia.exe` and move it to a directory included in your PATH.
+  2. Verify the installation by opening a command prompt and running:
+     ```cmd
+     sia --help
+     ```
 
-```bash
-sia --help
-```
-
-> You can also install the CLI on a remote computer to manage the servers remotely.
+> You can also install the CLI on a [remote computer](06_set_remote_cli.md) to manage the servers remotely. 
 
 ### 2. **Set Up the CLI to Connect to the Servers**
 
@@ -47,18 +94,5 @@ sia setpwd
 At the prompt, enter a strong password. This step ensures that the server is secured and accessible only to authorized administrators.
 
 > **Note**: Setting a strong password is crucial for the security of your SIA servers.
-
-### 4. **Remote CLI Access**
-
-After setting the admin password locally, you can set up the CLI on a remote computer to manage the servers. To do this, ensure that the `SIA_SERVER_URL` points to the server's public IP or domain name, and set the `SIA_API_KEY` accordingly.
-
-For example:
-
-```bash
-export SIA_SERVER_URL=http://your-server-ip
-export SIA_API_KEY=Your-Generated-API-Key
-```
-
-This allows you to manage SIA servers from any authorized remote machine, providing flexibility and ease of access.
 
 [Back to Documentation](/docs/README.md)
